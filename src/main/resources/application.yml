@@ -1,0 +1,14 @@
+server:
+  port: 8082
+  servlet:
+    contextPath: /AniShop
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: keystore.p12
+    key-store-password: mypassword
+spring:
+  datasource:
+    password: Tigrou007
+    url: jdbc:postgresql://localhost:5432/anishopdb?user=postgres
+    driverClassName: org.postgresql.Driver
