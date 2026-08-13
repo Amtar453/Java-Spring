@@ -2,6 +2,11 @@ server:
   port: 8082
   servlet:
     contextPath: /AniShop
+  ssl:
+    enabled: false
+    key-store-type: PKCS12
+    key-store: keystore.p12
+    key-store-password: mypassword
 spring:
   datasource:
     password: Tigrou007

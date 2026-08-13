@@ -72,7 +72,10 @@
             <artifactId>spring-boot-starter-security</artifactId>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+            <artifactId>owasp-java-html-sanitizer</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

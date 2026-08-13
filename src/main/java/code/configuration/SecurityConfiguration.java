@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 public class SecurityConfiguration {
 
     private static final String LOGIN_PAGE = "/login";
-    private static final String[] AUTHORIZED_ANYBODY = new String[]{"/welcome"};
+    private static final String[] AUTHORIZED_ANYBODY = new String[]{"/accueil", "/inscription", "/style/**", "/image/**"};
     private static final String[] RESTRICTED_ADMIN = new String[]{"/admin"};
 
     @Bean
@@ -32,14 +32,14 @@ public class SecurityConfiguration {
 
         http
                 .authorizeRequests()
-                .antMatchers(RESTRICTED_ADMIN).hasRole("ADMIN")
+                .antMatchers(RESTRICTED_ADMIN).hasRole("CLIENT")
                 .antMatchers(AUTHORIZED_ANYBODY).permitAll()
                 .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
                 .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
-                .loginPage("/login")
+                .loginPage(LOGIN_PAGE)
                 .permitAll()
 
                 .and()

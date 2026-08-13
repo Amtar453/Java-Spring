@@ -1,5 +1,16 @@
+code\model\User.class
+code\dataAccess\dao\UserDAO.class
+code\controller\Accueil.class
 code\configuration\SecurityConfiguration.class
+code\dataAccess\dao\UserDataAccess.class
 code\AniShopProjectApplication.class
+code\model\Droit.class
+code\dataAccess\repository\UserRepo.class
+code\controller\Login.class
+code\dataAccess\entity\UserEntity.class
+code\dataAccess\util\Converter.class
 code\configuration\TilesConfiguration.class
+code\service\UserDetailsImplementation.class
 code\configuration\MainConfiguration.class
 code\ServletInitializer.class
+code\controller\Inscription.class

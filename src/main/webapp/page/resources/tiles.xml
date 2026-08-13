@@ -9,21 +9,21 @@
     It has 4 attributes. These attributes are placeholder for our contents
     For each attribute, we have assigned a corresponding JSP
     -->
-    <definition name="template-main" template="/WEB-INF/jsp/template/template.jsp">
+    <definition name="template-main" template="/page/jsp/template/template.jsp">
         <put-attribute name="main-content" value="" />
     </definition>
 
     <!-- "ajax:" renders the page as-is, without the template -->
-    <definition name="ajax:**" template="/WEB-INF/jsp/ajax/{1}.jsp" />
+    <definition name="ajax:**" template="/page/jsp/ajax/{1}.jsp" />
 
     <!-- "tiles:" renders the specified page within the template-main -->
 
     <definition name="integrated:**" extends="template-main">
 
-        <put-attribute name="main-content" value="/WEB-INF/jsp/{1}.jsp" />
+        <put-attribute name="main-content" value="/page/jsp/{1}.jsp" />
     </definition>
 
     <definition name="error" extends="template-main">
-        <put-attribute name="main-content" value="/WEB-INF/jsp/error.jsp" />
+        <put-attribute name="main-content" value="/page/jsp/error.jsp" />
     </definition>
 </tiles-definitions>
