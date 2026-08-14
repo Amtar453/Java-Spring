@@ -1,7 +1,6 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 
 <%@ include file="../include/importTags.jsp" %>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <html>
 <head>
     <title>AniShop</title>
@@ -37,17 +36,35 @@
             </div>
 
             <div class="nav-right">
-                <a href="<spring:url value='/caddie'/>">Caddie</a>
-                <a href="<spring:url value='/login'/>">Login</a>
-                <a class="icon-btn" href="<spring:url value='/profil'/>">
-                    <img alt="Profil" src="<spring:url value='/image/profilButton.png'/>"/>
-                </a>
-                <a class="icon-btn" href="<spring:url value='/inscription'/>">
-                    Inscription
-                </a>
-                <a class="icon-btn" href="<spring:url value='/logout'/>">
-                    <img alt="Logout" src="<spring:url value='/image/logoutButton.png'/>"/>
-                </a>
+
+                <%--Si authentifie--%>
+                <sec:authorize access="isAuthenticated()">
+                    <a href="<spring:url value='/caddie'/>">
+                        Caddie
+                    </a>
+
+                    <a class="icon-btn" href="<spring:url value='/logout'/>">
+                        <img alt="Logout" src="<spring:url value='/image/logoutButton.png'/>"/>
+                    </a>
+
+                    <a class="icon-btn" href="<spring:url value='/profil'/>">
+                        <img alt="Profil" src="<spring:url value='/image/profilButton.png'/>"/>
+                    </a>
+                </sec:authorize>
+
+                <%--Si pas authentifie--%>
+                <sec:authorize access="!isAuthenticated()">
+                    <a href="<spring:url value='/login'/>">
+                        Login
+                    </a>
+
+                    <a class="icon-btn" href="<spring:url value='/inscription'/>">
+                        Inscris-toi !
+                    </a>
+                </sec:authorize>
+
+
+
             </div>
         </div>
 

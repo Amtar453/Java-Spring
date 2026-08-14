@@ -261,6 +261,107 @@ footer a:hover {
 }
 
 
+/* Login et Inscription */
+.form-container {
+    background: var(--navy);
+    border: 3px solid var(--ink);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 450px;
+    margin: 40px auto;
+}
+
+.form-container h1 {
+    color: var(--paper);
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 30px;
+}
+
+.form-container h2 {
+    color: var(--paper);
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-container label {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--paper);
+    font-size: 14px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="email"],
+.form-container select {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.form-container input[type="submit"] {
+    font-family: var(--font-display);
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    background: var(--vermillion);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    padding: 14px 24px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--ink);
+    margin-top: 10px;
+}
+
+.form-container a {
+    color: var(--cyan);
+    font-family: var(--font-body);
+    font-size: 14px;
+    text-align: center;
+    transition: color 0.2s ease;
+}
+
+.form-container a:hover {
+    color: var(--paper);
+    text-decoration: underline;
+}
+
+.form-container .error-message {
+    background: rgba(255, 59, 78, 0.2);
+    border: 1px solid var(--vermillion);
+    border-radius: 8px;
+    padding: 12px;
+    color: var(--vermillion);
+    font-size: 14px;
+    text-align: center;
+}
+
+.addressNumber{
+    display: flex;
+
+    #number, #postalCode{
+        align-content: center;
+    }
+    #number + input, #postalCode + input{
+        width: 90px;
+    }
+}
+
+
+
 @media (max-width: 720px) {
     nav {
         flex-wrap: wrap;

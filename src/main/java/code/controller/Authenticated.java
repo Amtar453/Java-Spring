@@ -14,7 +14,7 @@ public class Authenticated {
     public String authenticated(Authentication authentication, Model model) {
         User userDetails = (User) authentication.getPrincipal();
 
-        model.addAttribute("username", userDetails.getUsername());
-        return "integrated:authentifie";
+        model.addAttribute("user", userDetails);
+        return "integrated:authenticated";
     }
 }

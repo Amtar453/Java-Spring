@@ -32,7 +32,7 @@ public class SecurityConfiguration {
 
         http
                 .authorizeRequests()
-                .antMatchers(RESTRICTED_ADMIN).hasRole("CLIENT")
+                .antMatchers(RESTRICTED_ADMIN).hasRole("ADMIN")
                 .antMatchers(AUTHORIZED_ANYBODY).permitAll()
                 .anyRequest().authenticated()
 

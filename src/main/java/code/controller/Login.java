@@ -19,7 +19,7 @@ public class Login {
         if (authentication != null &&
             authentication.isAuthenticated() &&
             !"anonymousUser".equals(authentication.getPrincipal())) {
-                return "redirect:/authentifie";
+                return "redirect:/authenticated";
         }
 
         model.addAttribute("user", new User());

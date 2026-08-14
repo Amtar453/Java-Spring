@@ -10,5 +10,13 @@ server:
 spring:
   datasource:
     password: Tigrou007
-    url: jdbc:postgresql://localhost:5432/anishopdb?user=postgres
+    url: jdbc:postgresql://localhost:5432/anishopdb
+    username: postgres
     driverClassName: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        default_schema: anishopdb
+    hibernate:
+      ddl-auto: validate
+    show-sql: true

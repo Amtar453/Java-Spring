@@ -1,6 +1,7 @@
 package code.service;
 
 import code.dataAccess.dao.UserDataAccess;
+import code.model.Locality;
 import code.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,12 +35,17 @@ public class UserDetailsImplementation implements UserDetailsService {
         return userDataAccess.getUserByUsername(username) == null;
     }
 
-    public void registerUser(String username, String rawPassword) {
+    public void registerUser(User user) {
         User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setPassword(passwordEncoder.encode(rawPassword)); // BCrypt
+        newUser.setName(user.getName());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPhoneNumber(user.getPhoneNumber());
+        newUser.setGender(user.getGender());
+        newUser.setLocality(user.getLocality());
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword())); // BCrypt
         newUser.setEnabled(true);
-        userDataAccess.createUser(newUser);
+        userDataAccess.save(newUser);
     }
-
 }
