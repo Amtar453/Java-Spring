@@ -4,16 +4,14 @@ import code.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/authenticated")
-public class Authenticated {
+@RequestMapping("/profil")
+public class Profil {
 
-    @GetMapping
-    public String authenticated(Authentication authentication, Model model) {
-
+    public String profil(Authentication authentication, Model model) {
         model.addAttribute("user", (User) authentication.getPrincipal());
-        return "integrated:authenticated";
+        return "integrated:profil";
     }
 }

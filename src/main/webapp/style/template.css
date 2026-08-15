@@ -192,11 +192,15 @@ nav {
     text-align: center;
 }
 
-.welcome-message {
+.welcome-message-template {
     font-family: var(--font-body);
     font-size: 14px;
     color: var(--paper);
     opacity: 0.9;
+}
+
+.welcome-message-text {
+    text-align: center;
 }
 
 body > div {

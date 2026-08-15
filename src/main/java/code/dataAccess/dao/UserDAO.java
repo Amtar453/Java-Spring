@@ -42,7 +42,7 @@ public class UserDAO implements UserDataAccess {
         localityEntity.setCity(user.getLocality().getCity());
         addressEntity.setNumber(address.getNumber());
         addressEntity.setStreet(address.getStreet());
-        localityEntity.setAddressEntity(addressEntity);
+        localityEntity.setAddress(addressEntity);
 
         userEntity.setLocality(localityEntity);
 

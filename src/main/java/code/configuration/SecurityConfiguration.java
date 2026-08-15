@@ -16,34 +16,41 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     private static final String LOGIN_PAGE = "/login";
-    private static final String[] AUTHORIZED_ANYBODY = new String[]{"/accueil", "/inscription", "/style/**", "/image/**"};
-    private static final String[] RESTRICTED_ADMIN = new String[]{"/admin"};
+    private static final String[] AUTHORIZED_ANYBODY = new String[]{"/accueil", "/inscription", "/achat", "/style/**", "/image/**"};
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
 
-        http.csrf(Customizer.withDefaults()); // Default CSRF protection
+        http.csrf(Customizer.withDefaults());
 
         http
                 .authorizeRequests()
-                .antMatchers(RESTRICTED_ADMIN).hasRole("ADMIN")
                 .antMatchers(AUTHORIZED_ANYBODY).permitAll()
                 .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
-                .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
+                .defaultSuccessUrl("/authenticated", true)
                 .loginPage(LOGIN_PAGE)
                 .permitAll()
 
+                // Pour eviter de se reconnecter (a besoin de UserDetailsService)
+                .and()
+                .rememberMe()
+                .userDetailsService(userDetailsService)
+                .key("cleSecretTres")
+                .tokenValiditySeconds(86400) // 1 jour
+
                 .and()
                 .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) // Permettre le logout (<a> fait un GET et faut un POST)
                 .permitAll();
 
         http

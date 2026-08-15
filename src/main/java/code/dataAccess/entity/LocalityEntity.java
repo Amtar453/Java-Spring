@@ -28,7 +28,7 @@ public class LocalityEntity {
     public String getCity() {
         return city;
     }
-    public  AddressEntity getAddressEntity() {
+    public AddressEntity getAddress() {
         return address;
     }
 
@@ -39,7 +39,7 @@ public class LocalityEntity {
     public void setCity(String city) {
         this.city = city;
     }
-    public void setAddressEntity(AddressEntity addressEntity) {
+    public void setAddress(AddressEntity addressEntity) {
         this.address = addressEntity;
     }
 }

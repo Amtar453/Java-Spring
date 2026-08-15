@@ -36,7 +36,6 @@
             </div>
 
             <div class="nav-right">
-
                 <%--Si authentifie--%>
                 <sec:authorize access="isAuthenticated()">
                     <a href="<spring:url value='/caddie'/>">
@@ -62,14 +61,13 @@
                         Inscris-toi !
                     </a>
                 </sec:authorize>
-
-
-
             </div>
         </div>
 
         <div class="nav-bottom">
-            <span class="welcome-message">Message d'accueil</span>
+            <span class="welcome-message-template">
+                Bienvenue sur AniShop ! Ici vous trouverez des figurines DragonBall, Naruto, Bleach, et bien d'autres.
+            </span>
         </div>
     </nav>
 
@@ -77,7 +75,7 @@
         <tiles:insertAttribute name="main-content" />
     </div>
     <footer>
-        <a href="">
+        <a href="<spring:url value='/descriptionSociete'/>">
             Description de la societe
         </a>
     </footer>
