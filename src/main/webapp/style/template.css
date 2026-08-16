@@ -163,7 +163,7 @@ nav {
     transform: scale(1.1);
 }
 
-/* Icon buttons (Profil, Inscription, Logout) */
+/* Icon buttons (Profile, Inscription, Logout) */
 .icon-btn {
     padding: 4px !important;
     display: flex;
@@ -364,7 +364,38 @@ footer a:hover {
     }
 }
 
+/*Formulaire du profil*/
+.profil-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
+.profil-header h2 {
+    margin: 0;
+}
+
+.profil-button {
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s ease, transform 0.15s ease;
+    box-shadow: none;
+}
+
+.profil-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.profil-button img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-color: var(--paper);
+}
 
 @media (max-width: 720px) {
     nav {

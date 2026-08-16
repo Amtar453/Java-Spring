@@ -6,26 +6,25 @@ DROP TABLE IF EXISTS anishopdb.category CASCADE;
 DROP TABLE IF EXISTS anishopdb."order" CASCADE;
 DROP TABLE IF EXISTS anishopdb.payment_state CASCADE;
 DROP TABLE IF EXISTS anishopdb.authority CASCADE;
-DROP TABLE IF EXISTS anishopdb.users CASCADE;
-DROP TABLE IF EXISTS anishopdb.locality CASCADE;
+DROP TABLE IF EXISTS anishopdb."user" CASCADE;
 DROP TABLE IF EXISTS anishopdb.address CASCADE;
-
-CREATE TABLE anishopdb.address (
-    street VARCHAR(100) NOT NULL,
-    number VARCHAR(5) NOT NULL,
-
-    CONSTRAINT pk_address PRIMARY KEY(street, number)
-);
+DROP TABLE IF EXISTS anishopdb.locality CASCADE;
 
 CREATE TABLE anishopdb.locality (
     postal_code VARCHAR(10) NOT NULL,
     city VARCHAR(50) NOT NULL,
-    address_street VARCHAR(100) NOT NULL,
-    address_number VARCHAR(5) NOT NULL,
 
-    CONSTRAINT pk_localite PRIMARY KEY(postal_code, city),
-    CONSTRAINT fk_localite FOREIGN KEY(address_street, address_number)
-        REFERENCES anishopdb.address(street, number)
+    CONSTRAINT pk_localite PRIMARY KEY(postal_code, city)
+);
+
+CREATE TABLE anishopdb.address (
+    street VARCHAR(100) NOT NULL,
+    number VARCHAR(5) NOT NULL,
+    locality_postal_code VARCHAR(10) NOT NULL,
+    locality_city VARCHAR(50) NOT NULL,
+
+    CONSTRAINT pk_address PRIMARY KEY(street, number, locality_postal_code, locality_city),
+    CONSTRAINT fk_address FOREIGN KEY(locality_postal_code, locality_city) REFERENCES anishopdb.locality(postal_code, city)
 );
 
 CREATE TABLE anishopdb."user" (
@@ -35,14 +34,16 @@ CREATE TABLE anishopdb."user" (
     phone_number VARCHAR(10) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     gender VARCHAR(20),
-    locality_postal_code VARCHAR(10) NOT NULL,
-    locality_city VARCHAR(50) NOT NULL,
+    address_street VARCHAR(100) NOT NULL,
+    address_number VARCHAR(5) NOT NULL,
+    address_locality_postal_code VARCHAR(10) NOT NULL,
+    address_locality_city VARCHAR(50) NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(60) NOT NULL,
     enabled BOOLEAN NOT NULL,
 
-    CONSTRAINT user_fk FOREIGN KEY (locality_postal_code, locality_city)
-        REFERENCES anishopdb.locality(postal_code, city)
+    CONSTRAINT user_fk FOREIGN KEY (address_street, address_number, address_locality_postal_code, address_locality_city)
+        REFERENCES anishopdb.address(street, number, locality_postal_code, locality_city)
 );
 
 CREATE TABLE anishopdb.authority (

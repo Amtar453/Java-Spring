@@ -16,13 +16,11 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/inscription")
 public class Inscription {
-    private UserDataAccess userDAO;
     private final UserDetailsImplementation userDetailsService;
     private final PolicyFactory sanitizerPolicy = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
 
     @Autowired
-    public Inscription(UserDataAccess userDAO, UserDetailsImplementation userDetailsService) {
-        this.userDAO = userDAO;
+    public Inscription(UserDetailsImplementation userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -38,20 +36,20 @@ public class Inscription {
         String name = user.getName();
         String firstName = user.getFirstName();
         String phoneNumber = user.getPhoneNumber();
-        String postalCode = user.getLocality().getPostalCode();
-        String city = user.getLocality().getCity();
-        String street = user.getLocality().getAddress().getStreet();
-        String number = user.getLocality().getAddress().getNumber();
+        String street = user.getAddress().getStreet();
+        String number = user.getAddress().getNumber();
+        String postalCode = user.getAddress().getLocality().getPostalCode();
+        String city = user.getAddress().getLocality().getCity();
 
         String cleanUsername = sanitizerPolicy.sanitize(username);
         String cleanName = sanitizerPolicy.sanitize(name);
         String cleanFirstName = sanitizerPolicy.sanitize(firstName);
         String cleanPhoneNumber = sanitizerPolicy.sanitize(phoneNumber);
-        String cleanPostalCode = sanitizerPolicy.sanitize(postalCode);
-        String cleanCity = sanitizerPolicy.sanitize(city);
         String cleanStreet = sanitizerPolicy.sanitize(street);
         String cleanNumber = sanitizerPolicy.sanitize(number);
-        Locality locality = new Locality(cleanPostalCode, cleanCity, new Address(cleanStreet, cleanNumber));
+        String cleanPostalCode = sanitizerPolicy.sanitize(postalCode);
+        String cleanCity = sanitizerPolicy.sanitize(city);
+        Address address = new Address(cleanStreet, cleanNumber, new Locality(cleanPostalCode, cleanCity));
 
         // Cle-valeur pour eviter la redondance
         HashMap<String, String[]> userPeer = new HashMap<>();
@@ -85,12 +83,24 @@ public class Inscription {
             return "integrated:inscription";
         }
 
+        // Si email existe deja
+        if (!userDetailsService.isEmailAvailable(user.getEmail())) {
+            model.addAttribute("error", "Cet email existe deja.");
+            return "integrated:inscription";
+        }
+
+        // Si numero telephone existe deja
+        if (!userDetailsService.isPhoneNumberAvailable(user.getPhoneNumber())) {
+            model.addAttribute("error", "Ce numero de tel existe deja.");
+            return "integrated:inscription";
+        }
+
         user.setUsername(cleanUsername);
         user.setName(cleanName);
         user.setFirstName(cleanFirstName);
         user.setEmail(user.getEmail());
         user.setPhoneNumber(cleanPhoneNumber);
-        user.setLocality(locality);
+        user.setAddress(address);
 
         userDetailsService.registerUser(user);
         return "redirect:/login";

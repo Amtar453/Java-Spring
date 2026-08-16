@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthorityDAO implements AuthorityDataAccess{
-    private AuthorityRepo authorityRepo;
+    private final AuthorityRepo authorityRepo;
 
     @Autowired
     public AuthorityDAO(AuthorityRepo authorityRepo) {

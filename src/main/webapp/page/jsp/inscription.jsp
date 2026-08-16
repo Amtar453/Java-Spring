@@ -33,21 +33,21 @@
             </form:select>
 
         <h2>Adresse</h2>
-            <label for="locality.city">Ville </label>
-            <form:input path="locality.city" required="true"/>
-            <form:errors class="error-message" path="locality.city"/>
+            <label for="address.locality.city">Ville </label>
+            <form:input path="address.locality.city" required="true"/>
+            <form:errors class="error-message" path="address.locality.city"/>
             <div class="addressNumber">
-                <label id="postalCode" for="locality.postalCode">Code postal </label>
-                <form:input path="locality.postalCode" required="true"/>
-                <form:errors class="error-message" path="locality.postalCode"/>
+                <label id="postalCode" for="address.locality.postalCode">Code postal </label>
+                <form:input path="address.locality.postalCode" required="true"/>
+                <form:errors class="error-message" path="address.locality.postalCode"/>
 
-                <label id="number" for="locality.address.number">Numéro </label>
-                <form:input path="locality.address.number" required="true"/>
-                <form:errors class="error-message" path="locality.address.number"/>
+                <label id="number" for="address.number">Numéro </label>
+                <form:input path="address.number" required="true"/>
+                <form:errors class="error-message" path="address.number"/>
             </div>
-            <label for="locality.address.street">Rue </label>
-            <form:input path="locality.address.street" required="true"/>
-            <form:errors class="error-message" path="locality.address.street"/>
+            <label for="address.street">Rue </label>
+            <form:input path="address.street" required="true"/>
+            <form:errors class="error-message" path="address.street"/>
 
         <h2>Identifiants</h2>
             <label for="username">Nom d'utilisateur </label>

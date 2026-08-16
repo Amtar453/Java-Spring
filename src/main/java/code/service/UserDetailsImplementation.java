@@ -35,6 +35,14 @@ public class UserDetailsImplementation implements UserDetailsService {
         return userDataAccess.getUserByUsername(username) == null;
     }
 
+    public boolean isEmailAvailable(String email) {
+        return userDataAccess.getUserByEmail(email) == null;
+    }
+
+    public boolean isPhoneNumberAvailable(String phoneNumber) {
+        return userDataAccess.getUserByPhoneNumber(phoneNumber) == null;
+    }
+
     public void registerUser(User user) {
         User newUser = new User();
         newUser.setName(user.getName());
@@ -42,7 +50,7 @@ public class UserDetailsImplementation implements UserDetailsService {
         newUser.setEmail(user.getEmail());
         newUser.setPhoneNumber(user.getPhoneNumber());
         newUser.setGender(user.getGender());
-        newUser.setLocality(user.getLocality());
+        newUser.setAddress(user.getAddress());
         newUser.setUsername(user.getUsername());
         newUser.setPassword(passwordEncoder.encode(user.getPassword())); // BCrypt
         newUser.setEnabled(true);

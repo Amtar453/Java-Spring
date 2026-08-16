@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class AddressIdEntity implements Serializable {
     private String street;
     private String number;
+    private LocalityIdEntity locality;
 
     public AddressIdEntity() {}
 
@@ -17,6 +18,9 @@ public class AddressIdEntity implements Serializable {
     public String getNumber() {
         return number;
     }
+    public LocalityIdEntity getLocalityEntity() {
+        return locality;
+    }
 
     // SETTERS
     public void setStreet(String street) {
@@ -24,6 +28,9 @@ public class AddressIdEntity implements Serializable {
     }
     public void setNumber(String number) {
         this.number = number;
+    }
+    public void setLocalityEntity(LocalityIdEntity locality) {
+        this.locality = locality;
     }
 
     @Override
@@ -34,11 +41,12 @@ public class AddressIdEntity implements Serializable {
         AddressIdEntity that = (AddressIdEntity) o;
 
         return java.util.Objects.equals(street, that.street)
-                && java.util.Objects.equals(number, that.number);
+                && java.util.Objects.equals(number, that.number)
+                && java.util.Objects.equals(locality, that.locality);
     }
 
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(street, number);
+        return java.util.Objects.hash(street, number, locality);
     }
 }

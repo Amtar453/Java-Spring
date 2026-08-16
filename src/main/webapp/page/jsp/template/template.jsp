@@ -46,8 +46,8 @@
                         <img alt="Logout" src="<spring:url value='/image/logoutButton.png'/>"/>
                     </a>
 
-                    <a class="icon-btn" href="<spring:url value='/profil'/>">
-                        <img alt="Profil" src="<spring:url value='/image/profilButton.png'/>"/>
+                    <a class="icon-btn" href="<spring:url value='/profile'/>">
+                        <img alt="Profil" src="<spring:url value='/image/profileButton.png'/>"/>
                     </a>
                 </sec:authorize>
 

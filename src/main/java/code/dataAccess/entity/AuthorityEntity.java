@@ -1,10 +1,11 @@
 package code.dataAccess.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="authority")
-public class AuthorityEntity {
+public class AuthorityEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")

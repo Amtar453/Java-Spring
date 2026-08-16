@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @Size(min=5, max=72)
     private String password;
     private Boolean enabled;
-    private Locality locality;
+    private Address address;
     private Set<Authority> authorityList;
 
     public User(){}
@@ -52,8 +52,8 @@ public class User implements UserDetails {
     public String getGender() {
         return gender;
     }
-    public Locality getLocality() {
-        return locality;
+    public Address getAddress() {
+        return address;
     }
     public String getEmail() {
         return email;
@@ -84,8 +84,8 @@ public class User implements UserDetails {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    public void setLocality(Locality locality) {
-        this.locality = locality;
+    public void setAddress(Address address) {
+        this.address = address;
     }
     public void setEmail(String email) {
         this.email = email;

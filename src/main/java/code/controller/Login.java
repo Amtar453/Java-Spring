@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class Login {
 
     @GetMapping
-    public String login(Model model) {
+    public String home(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // Si déjà authentifié -> redirection vers /authenticated

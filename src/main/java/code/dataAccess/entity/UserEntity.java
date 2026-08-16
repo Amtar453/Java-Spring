@@ -1,10 +1,11 @@
 package code.dataAccess.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="user")
-public class UserEntity {
+public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,10 +28,12 @@ public class UserEntity {
     private Boolean enabled;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns({
-            @JoinColumn(name = "locality_postal_code", referencedColumnName = "postal_code"),
-            @JoinColumn(name = "locality_city", referencedColumnName = "city")
+            @JoinColumn(name = "address_street", referencedColumnName = "street"),
+            @JoinColumn(name = "address_number", referencedColumnName = "number"),
+            @JoinColumn(name="address_locality_postal_code", referencedColumnName="locality_postal_code"),
+            @JoinColumn(name="address_locality_city", referencedColumnName="locality_city")
     })
-    private LocalityEntity locality;
+    private AddressEntity address;
 
 
     public UserEntity() {}
@@ -63,8 +66,8 @@ public class UserEntity {
     public Boolean getEnabled() {
         return enabled;
     }
-    public LocalityEntity getLocality() {
-        return locality;
+    public AddressEntity getAddress() {
+        return address;
     }
 
     // Setters
@@ -95,8 +98,8 @@ public class UserEntity {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-    public void setLocality(LocalityEntity locality) {
-        this.locality = locality;
+    public void setAddress(AddressEntity address) {
+        this.address = address;
     }
 
 }

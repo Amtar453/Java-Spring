@@ -10,55 +10,71 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserDAO implements UserDataAccess {
-    private UserRepo userRepo;
-    private Converter converter;
+    private final UserRepo userRepo;
+    private final Converter converter;
 
-    private AuthorityDataAccess authorityDAO;
-    private LocalityDataAccess localityDao;
+    private final AuthorityDataAccess authorityDAO;
+    private final AddressDataAccess addressDAO;
 
     @Autowired
-    public UserDAO(UserRepo userRepo, Converter converter, AuthorityDataAccess authorityDAO, LocalityDataAccess localityDao) {
+    public UserDAO(UserRepo userRepo, Converter converter, AuthorityDataAccess authorityDAO, AddressDataAccess addressDAO) {
         this.userRepo = userRepo;
         this.converter = converter;
 
         this.authorityDAO = authorityDAO;
-        this.localityDao = localityDao;
+        this.addressDAO = addressDAO;
     }
 
-
+    // CREATE
     @Transactional
     public void save(User user) {
         UserEntity userEntity = new UserEntity();
-        LocalityEntity localityEntity = new LocalityEntity();
         AddressEntity addressEntity = new AddressEntity();
-        Address address = user.getLocality().getAddress();
+        LocalityEntity localityEntity = new LocalityEntity();
+        Address address = user.getAddress();
 
         userEntity.setName(user.getName());
         userEntity.setFirstName(user.getFirstName());
         userEntity.setPhoneNumber(user.getPhoneNumber());
         userEntity.setEmail(user.getEmail());
 
-        localityEntity.setPostalCode(user.getLocality().getPostalCode());
-        localityEntity.setCity(user.getLocality().getCity());
+        localityEntity.setPostalCode(user.getAddress().getLocality().getPostalCode());
+        localityEntity.setCity(user.getAddress().getLocality().getCity());
         addressEntity.setNumber(address.getNumber());
         addressEntity.setStreet(address.getStreet());
-        localityEntity.setAddress(addressEntity);
+        addressEntity.setLocality(localityEntity);
 
-        userEntity.setLocality(localityEntity);
+        userEntity.setAddress(addressEntity);
 
         userEntity.setUsername(user.getUsername());
         userEntity.setPassword(user.getPassword());
         userEntity.setGender(user.getGender());
         userEntity.setEnabled(user.isEnabled());
 
-        localityDao.save(user.getLocality());
+        addressDAO.save(user.getAddress());
         userRepo.save(userEntity);
         authorityDAO.save(user.getUsername());
     }
 
+    // READ
     public User getUserByUsername(String username) {
         UserEntity userEntity = userRepo.findByUsername(username);
 
         return userEntity == null ? null : converter.userEtoM(userEntity);
+    }
+
+    public User getUserByEmail(String email) {
+        UserEntity user = userRepo.findByEmail(email);
+        return user == null ? null : converter.userEtoM(user);
+    }
+
+    public User getUserByPhoneNumber(String phoneNumber) {
+        UserEntity user = userRepo.findByPhoneNumber(phoneNumber);
+        return user == null ? null : converter.userEtoM(user);
+    }
+
+    // UPDATE
+    public void update(User user) {
+        userRepo.save(converter.userMtoE(user));
     }
 }

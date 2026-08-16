@@ -5,16 +5,18 @@ import javax.validation.constraints.*;
 public class Address {
     @NotBlank
     @Size(min=5, max=100)
-    public String street;
+    private String street;
     @NotBlank
     @Size(min=1, max=5)
-    public String number;
+    private String number;
+    private Locality locality;
 
     public Address(){}
 
-    public Address(String street, String number) {
+    public Address(String street, String number, Locality locality) {
         this.street = street;
         this.number = number;
+        this.locality = locality;
     }
 
     // GETTERS
@@ -24,6 +26,9 @@ public class Address {
     public String getNumber() {
         return number;
     }
+    public  Locality getLocality() {
+        return locality;
+    }
 
     // SETTERS
     public void setStreet(String street) {
@@ -31,5 +36,8 @@ public class Address {
     }
     public void setNumber(String number) {
         this.number = number;
+    }
+    public void setLocality(Locality locality) {
+        this.locality = locality;
     }
 }

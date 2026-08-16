@@ -1,5 +1,6 @@
 package code.dataAccess.dao;
 
+import code.dataAccess.entity.LocalityEntity;
 import code.dataAccess.repository.LocalityRepo;
 import code.dataAccess.util.Converter;
 import code.model.*;
@@ -8,19 +9,24 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LocalityDAO implements LocalityDataAccess{
-    private LocalityRepo localityRepo;
-    private Converter converter;
-    private AddressDataAccess addressDao;
+    private final LocalityRepo localityRepo;
+    private final Converter converter;
 
     @Autowired
-    public LocalityDAO(LocalityRepo localityRepo, Converter converter, AddressDataAccess addressDao) {
+    public LocalityDAO(LocalityRepo localityRepo, Converter converter) {
         this.localityRepo = localityRepo;
         this.converter = converter;
-        this.addressDao = addressDao;
     }
 
+    // CREATE
     public void save(Locality locality){
-        addressDao.save(locality.getAddress());
         localityRepo.save(converter.localityMtoE(locality));
+    }
+    
+    // READ
+    public Locality getById(String postalCode, String city){
+        LocalityEntity localityE = localityRepo.findByPostalCodeAndCity(postalCode, city);
+
+        return localityE == null ? null : converter.localityEtoM(localityE);
     }
 }

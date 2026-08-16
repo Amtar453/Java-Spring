@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class Authenticated {
 
     @GetMapping
-    public String authenticated(Authentication authentication, Model model) {
+    public String home(Authentication authentication, Model model) {
 
         model.addAttribute("user", (User) authentication.getPrincipal());
         return "integrated:authenticated";
